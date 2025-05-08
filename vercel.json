@@ -1,0 +1,29 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/api/index.js",
+      "headers": {
+        "Cache-Control": "s-maxage=60"
+      }
+    },
+    {
+      "src": "/api/project/list",
+      "dest": "/api/index.js"
+    },
+    {
+      "src": "/img/(.*)",
+      "dest": "/api/image-proxy.js",
+      "headers": {
+        "Cache-Control": "public, max-age=31536000, immutable"
+      }
+    }
+  ]
+}

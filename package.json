@@ -4,7 +4,10 @@
   "description": "This is Flora's assignment for Http5222",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./index.js"
+    "dev": "nodemon ./index.js",
+    "start": "node index.js",
+    "vercel-build": "echo 'Skip build for Serverless Functions'", 
+    "build": "vite build"
   },
   "keywords": [
     "portfolio",
@@ -14,12 +17,14 @@
   "author": "Flora Jiang",
   "license": "ISC",
   "dependencies": {
+    "vite": "^5.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "mongodb": "^6.9.0",
     "mongoose": "^8.7.1",
-    "multer": "^1.4.5-lts.1",
+    "multer": "^1.4.5-lts.1", 
+    "node-fetch": "^3.3.2",
     "pug": "^3.0.3"
   },
   "devDependencies": {
