@@ -140,9 +140,9 @@ app.get("/project/edit", async (request, response) => {
         response.redirect("/project");
     }
 });
+
 // project pages - edit(submit)
 app.post("/project/edit/submit", upload.single('screen'),async (request, response) => {
-    //get the _id and set it as a JSON object to be used for the filter
     let id = request.body.projId;
     let idFilter = { _id: new ObjectId(id) };
     let updatedProj = {
