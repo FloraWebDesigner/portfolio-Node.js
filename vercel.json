@@ -1,26 +1,22 @@
 {
   "version": 2,
   "builds": [
-    {
-      "src": "api/*.js",
-      "use": "@vercel/node"
-    }
+    { "src": "api/*.js", "use": "@vercel/node" }
   ],
   "routes": [
     {
-      "src": "/",
+      "src": "/api/project/list",
       "dest": "/api/index.js",
       "headers": {
-        "Cache-Control": "s-maxage=60"
+        "Access-Control-Allow-Origin": "https://vite-project-v3.vercel.app",
+        "Access-Control-Allow-Methods": "GET",
+        "Access-Control-Expose-Headers": "Content-Length",
+        "Vary": "Origin"
       }
     },
     {
-      "src": "/api/project/list",
-      "dest": "/api/index.js"
-    },
-    {
       "src": "/img/(.*)",
-      "dest": "/api/image-proxy.js",
+      "dest": "/api/index.js",
       "headers": {
         "Cache-Control": "public, max-age=31536000, immutable"
       }

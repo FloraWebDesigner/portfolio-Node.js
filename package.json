@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon ./index.js",
     "start": "node index.js",
-    "vercel-build": "echo 'Skip build for Serverless Functions'", 
-    "build": "vite build"
+"build": "node pre-build.js && vite build",
+    "vercel-build": "node pre-build.js && echo '静态数据已生成'"
   },
   "keywords": [
     "portfolio",
