@@ -22,6 +22,7 @@ dotenv.config();
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -29,6 +30,8 @@ app.use(cors({
     origin: '*'
 }));
 
+app.use('/img', express.static(path.join(__dirname, 'public', 'img')));
+app.use(express.static(path.join(__dirname, "public")));
 // img upload
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -39,10 +42,18 @@ var storage = multer.diskStorage({
     }
 })
 
-app.use(express.static('public/img'));
 var upload = multer({ storage: storage });
 
-app.use(express.static(path.join(__dirname, "public")));
+
+app.get('/img/:filename', (req, res) => {
+  const filePath = path.join(__dirname, 'public', 'img', req.params.filename);
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error('Send file failed:', err);
+      res.status(404).send('File not found');
+    }
+  });
+});
 
 //https://medium.com/swlh/how-to-upload-image-using-multer-in-node-js-f3aeffb90657
 app.post('/img', upload.single('screen'), function (req, res, next) {
@@ -51,7 +62,7 @@ app.post('/img', upload.single('screen'), function (req, res, next) {
     console.log(JSON.stringify(req.file))
     var response = '<a href="/">Home</a><br>'
     response += "Files uploaded successfully.<br>"
-    response += `<img src="/img/${req.file.path}" /><br>`
+    response += `<img src="/img/${req.file.filename}" /><br>`
     return res.send(response);
   })
 
